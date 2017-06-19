@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1497848855 source:c:\users\james.vaio\documents\laboratorio3\main.c
+	<stdio.h>
+	<stdlib.h>
+	<fcntl.h>
+	<ctype.h>
+	<unistd.h>
+	<sys/types.h>
+	<signal.h>
+
