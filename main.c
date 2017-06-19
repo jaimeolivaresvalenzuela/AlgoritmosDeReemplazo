@@ -12,7 +12,7 @@ Fecha: 2017-06-19
 Profesor:   Fernando Rannou (fernando.rannou@usach.cl)
             Miguel Caarcamo (miguel.carcamo@usach.cl)
 Ayudante: Natalia Perez (natalia.perez.g@usach.cl)
-Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmoDeReemplazo
+Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmosDeReemplazo
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,11 +21,12 @@ Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmoDeReemplazo
 #include <unistd.h>
 #include <sys/types.h>
 #include <signal.h>
-int *matriz
+//int *matriz;
 int main(int argc, char *argv[])
 {
-    int marcos,pararg,fichero;
-
+    int marcos,pararg,fichero,caracter;
+    FILE *archivo;
+    char *pagina;
      while ((pararg=getopt(argc,argv,"m:e:o:")) != -1){
 
         switch (pararg){
@@ -36,10 +37,17 @@ int main(int argc, char *argv[])
 
         break;
         case 'e':
-
-            fichero=open(optarg,O_RDONLY,0644);
-            printf("%d\n",fichero);
-            matriz=(int*)malloc(sizeof(int)*atoi(optarg)
+            archivo=fopen(optarg,"rt");
+            if (archivo == NULL){
+                printf("\nError de apertura del archivo. \n\n");
+            }
+            else
+            {
+                printf("\nEl contenido del archivo de prueba es \n\n");
+                while((caracter = fgetc(archivo)) != EOF)  {
+                    printf("%c",caracter);
+                }
+            }
 
         break;
         case 'o':
