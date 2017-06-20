@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1497898254 source:c:\users\james.vaio\documents\laboratorio3\main.c
+1497940960 source:c:\users\james.vaio\documents\laboratorio3\main.c
 	<stdio.h>
 	<stdlib.h>
 	<fcntl.h>
@@ -7,4 +7,5 @@
 	<unistd.h>
 	<sys/types.h>
 	<signal.h>
+	<windows.h>
 

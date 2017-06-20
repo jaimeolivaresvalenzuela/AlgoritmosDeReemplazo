@@ -21,13 +21,56 @@ Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmosDeReemplazo
 #include <unistd.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <windows.h>
 //int *matriz;
+
+
+void algoritmosDeReemplazo(int Npaginas,FILE *archivo ){
+int paginas[Npaginas];
+//char * buffer = NULL;
+  int i, c;
+  rewind(archivo);
+  c = fgetc(archivo);
+  paginas[0]=0;
+  i = 0;
+  while(!feof(archivo))
+    {
+      //buffer = (char*)realloc(NULL, sizeof(char));
+
+      while( c != '\n')
+        {
+        if(c!=44){
+            if(paginas[i]==0){
+                paginas[i]=c-48;
+
+
+            }else{
+                paginas[i]=paginas[i]*10+(c-48);
+            }
+        }else{
+        printf("%d\n",paginas[i]);
+        i++;
+        paginas[i]=0;
+
+        }
+          c = fgetc(archivo);
+        }
+
+
+
+    }
+
+}
+
+
+
 int main(int argc, char *argv[])
 {
-    int marcos,pararg,fichero,caracter;
+    int marcos,pararg,caracter,numeroPaginas=1;
     FILE *archivo;
-    char *pagina;
-     while ((pararg=getopt(argc,argv,"m:e:o:")) != -1){
+
+
+    while ((pararg=getopt(argc,argv,"m:e:o:")) != -1){
 
         switch (pararg){
         case 'm':
@@ -43,10 +86,18 @@ int main(int argc, char *argv[])
             }
             else
             {
-                printf("\nEl contenido del archivo de prueba es \n\n");
+                printf("\nEl contenido del archivo de Paginas es \n\n");
+                printf("%c\n",caracter);
                 while((caracter = fgetc(archivo)) != EOF)  {
-                    printf("%c",caracter);
+
+                    if (caracter == 44){
+                        numeroPaginas++;
+                    }
+
+
                 }
+                printf("Numero de paginas ingresadas %i \n",numeroPaginas);
+                algoritmosDeReemplazo(numeroPaginas,archivo);
             }
 
         break;
