@@ -24,10 +24,39 @@ Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmosDeReemplazo
 #include <windows.h>
 //int *matriz;
 
+int optimo(int *marcos,int *paginas,int ultimaPaginaInsertada,int Npaginas, int Nmarcos){
+int marco[Nmarcos];
+int j,n,paginaEnMarco,pocicion,marcoMayor;
 
-void algoritmosDeReemplazo(int Npaginas,FILE *archivo ){
+    for(n=0;n<Nmarcos;n++){
+        paginaEnMarco=marcos[n];
+        marco[n]=0;
+        for(j=ultimaPaginaInsertada;j<Npaginas;j++){
+
+            if(paginas[j]!=paginaEnMarco){
+                marco[n]++;
+            }else{
+                break;
+            }
+
+        }
+    }
+    marcoMayor=marco[0];
+    pocicion=0;
+    for(n=1;n<Nmarcos;n++){
+        if (marco[n]>marcoMayor){
+            marcoMayor=marco[n];
+            pocicion=n;
+        }
+    }
+
+return(pocicion);
+
+}
+void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
     int paginas[Npaginas];
-    int i, c;
+    int i,j,c,n;
+    int marcos[Nmarcos];
 
     rewind(archivo);
     c = fgetc(archivo);
@@ -53,8 +82,32 @@ void algoritmosDeReemplazo(int Npaginas,FILE *archivo ){
 
     }
      printf("%d\n",paginas[i]);
+    printf("\tMARCOS\n");
 
+//ALGORITMOS
 
+    for(i=0;i<Nmarcos;i++){
+        marcos[i]=-1;
+        printf("%d\t",i);
+    }
+    printf("\n");
+    for(i=0;i<Npaginas;i++){
+        for(j=0;j<Nmarcos;j++){
+
+            if(marcos[j]==-1){
+                marcos[j]=paginas[i];
+                break;
+            }
+         }
+         if (i==Nmarcos)
+         marcos[optimo(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
+     //   Muestra Marco
+        for(n=0;n<Nmarcos;n++)
+            if (marcos[n]!= -1)
+            printf("%d\t",marcos[n]);
+        printf("\n");
+
+    }
 
 }
 
@@ -93,7 +146,7 @@ int main(int argc, char *argv[])
 
                 }
                 printf("Numero de paginas ingresadas %i \n",numeroPaginas);
-                algoritmosDeReemplazo(numeroPaginas,archivo);
+                algoritmosDeReemplazo(numeroPaginas,archivo,marcos);
             }
 
         break;
@@ -108,6 +161,6 @@ int main(int argc, char *argv[])
 
 
 
-    printf("Hello world!\n");
+    printf("\n\n\n\nHello world!\n");
     return 0;
 }
