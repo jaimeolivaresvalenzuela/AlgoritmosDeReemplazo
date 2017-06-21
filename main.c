@@ -26,39 +26,35 @@ Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmosDeReemplazo
 
 
 void algoritmosDeReemplazo(int Npaginas,FILE *archivo ){
-int paginas[Npaginas];
-//char * buffer = NULL;
-  int i, c;
-  rewind(archivo);
-  c = fgetc(archivo);
-  paginas[0]=0;
-  i = 0;
-  while(!feof(archivo))
-    {
-      //buffer = (char*)realloc(NULL, sizeof(char));
+    int paginas[Npaginas];
+    int i, c;
 
-      while( c != '\n')
-        {
-        if(c!=44){
-            if(paginas[i]==0){
-                paginas[i]=c-48;
+    rewind(archivo);
+    c = fgetc(archivo);
+    paginas[0]=0;
+    i = 0;
 
+    while(i<Npaginas && c!=-1) {
+
+            if(c!=44 ){
+
+                if(paginas[i]==0){
+                    paginas[i]=c-48;
+                }else{
+                    paginas[i]=paginas[i]*10+(c-48);
+                }
 
             }else{
-                paginas[i]=paginas[i]*10+(c-48);
+                printf("%d\n",paginas[i]);
+                i++;
+                paginas[i]=0;
             }
-        }else{
-        printf("%d\n",paginas[i]);
-        i++;
-        paginas[i]=0;
-
-        }
-          c = fgetc(archivo);
-        }
-
-
+            c = fgetc(archivo);
 
     }
+     printf("%d\n",paginas[i]);
+
+
 
 }
 
