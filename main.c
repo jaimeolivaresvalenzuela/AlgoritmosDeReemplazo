@@ -28,10 +28,15 @@ int optimo(int *marcos,int *paginas,int ultimaPaginaInsertada,int Npaginas, int 
 int marco[Nmarcos];
 int j,n,paginaEnMarco,pocicion,marcoMayor;
 
+
+
+
     for(n=0;n<Nmarcos;n++){
         paginaEnMarco=marcos[n];
         marco[n]=0;
         for(j=ultimaPaginaInsertada;j<Npaginas;j++){
+
+
 
             if(paginas[j]!=paginaEnMarco){
                 marco[n]++;
@@ -49,13 +54,17 @@ int j,n,paginaEnMarco,pocicion,marcoMayor;
             pocicion=n;
         }
     }
+    if(ultimaPaginaInsertada+1==Npaginas){
+        pocicion=3;
+
+    }
 
 return(pocicion);
 
 }
 void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
     int paginas[Npaginas];
-    int i,j,c,n;
+    int i,j,c,n,cont=0;
     int marcos[Nmarcos];
 
     rewind(archivo);
@@ -63,7 +72,7 @@ void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
     paginas[0]=0;
     i = 0;
 
-    while(i<Npaginas && c!=-1) {
+    while(i<Npaginas && c!=-1){
 
             if(c!=44 ){
 
@@ -88,7 +97,7 @@ void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
 
     for(i=0;i<Nmarcos;i++){
         marcos[i]=-1;
-        printf("%d\t",i);
+        printf("%d  ",i);
     }
     printf("\n");
     for(i=0;i<Npaginas;i++){
@@ -96,17 +105,26 @@ void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
 
             if(marcos[j]==-1){
                 marcos[j]=paginas[i];
+                cont++;
                 break;
+            }else if(marcos[j]==paginas[i]) {
+                break;
+
+            }else if(cont==Nmarcos){
+                marcos[optimo(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
+
             }
          }
-         if (i==Nmarcos)
-         marcos[optimo(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
-     //   Muestra Marco
-        for(n=0;n<Nmarcos;n++)
-            if (marcos[n]!= -1)
-            printf("%d\t",marcos[n]);
-        printf("\n");
 
+
+     //   Muestra Marco
+        for(n=0;n<Nmarcos;n++){
+            if (marcos[n]!= -1){
+                printf("%d  ",marcos[n]);
+            }
+
+        }
+        printf("\n");
     }
 
 }
