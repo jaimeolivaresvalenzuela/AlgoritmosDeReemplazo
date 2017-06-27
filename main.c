@@ -24,6 +24,13 @@ Guithub:https://github.com/jaimeolivaresvalenzuela/AlgoritmosDeReemplazo
 #include <windows.h>
 //int *matriz;
 
+int lru(int *marcos,int *paginas,int ultimaPaginaInsertada,int Npaginas, int Nmarcos){
+
+}
+int fifo(int *marcos,int *paginas,int ultimaPaginaInsertada,int Npaginas, int Nmarcos){
+}
+int relog(int *marcos,int *paginas,int ultimaPaginaInsertada,int Npaginas, int Nmarcos){
+}
 int optimo(int *marcos,int *paginas,int ultimaPaginaInsertada,int Npaginas, int Nmarcos){
 int marco[Nmarcos];
 int j,n,paginaEnMarco,pocicion,marcoMayor;
@@ -66,7 +73,8 @@ void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
     int paginas[Npaginas];
     int i,j,c,n,cont=0;
     int marcos[Nmarcos];
-
+    int conatado[Nmarcos];
+    int algoritmo;
     rewind(archivo);
     c = fgetc(archivo);
     paginas[0]=0;
@@ -90,42 +98,74 @@ void algoritmosDeReemplazo(int Npaginas,FILE *archivo,int Nmarcos ){
             c = fgetc(archivo);
 
     }
+
      printf("%d\n",paginas[i]);
-    printf("\tMARCOS\n");
+    for(algoritmo=0;algoritmo<3;algoritmo++){
+        switch(algoritmo){
+        case 0:
+            printf("\nALGORITMO OPTIMO\n");
+            break;
+        case 1:
+            printf("\nALGORITMO LRU\n");
+            break;
+        case 2:
+            printf("\nALGORITMO FIFO\n");
+            break;
+        case 3:
+            printf("\nALGORITMO POLITICAS DE RELOG\n");
+            break;
+        }
 
-//ALGORITMOS
-
-    for(i=0;i<Nmarcos;i++){
-        marcos[i]=-1;
-        printf("%d  ",i);
-    }
-    printf("\n");
-    for(i=0;i<Npaginas;i++){
-        for(j=0;j<Nmarcos;j++){
-
-            if(marcos[j]==-1){
-                marcos[j]=paginas[i];
-                cont++;
-                break;
-            }else if(marcos[j]==paginas[i]) {
-                break;
-
-            }else if(cont==Nmarcos){
-                marcos[optimo(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
-
-            }
-         }
-
-
-     //   Muestra Marco
-        for(n=0;n<Nmarcos;n++){
-            if (marcos[n]!= -1){
-                printf("%d  ",marcos[n]);
-            }
-
+        for(i=0;i<Nmarcos;i++){
+            marcos[i]=-1;
+            printf("%d  ",i);
         }
         printf("\n");
-    }
+        for(i=0;i<Npaginas;i++){
+            for(j=0;j<Nmarcos;j++){
+
+                if(marcos[j]==-1){
+                    marcos[j]=paginas[i];
+                    cont++;
+                    break;
+                }else if(marcos[j]==paginas[i]) {
+                    break;
+
+                }else if(cont==Nmarcos){
+
+                    switch(algoritmo){
+                    case 0: //optimo
+                        marcos[optimo(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
+                        break;
+                    case 1:
+                        marcos[lru(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
+                        break;
+                    case 2:
+                        marcos[fifo(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
+                        break;
+                    case 3:
+                        marcos[relog(&marcos,&paginas,i,Npaginas,Nmarcos)]=paginas[i];
+                        break;
+                    }
+
+                }
+            }
+
+        //   Muestra Marco
+            for(n=0;n<Nmarcos;n++){
+                if (marcos[n]!= -1){
+                    printf("%d  ",marcos[n]);
+                }
+
+            }
+            printf("\n");
+        }
+//ALGORITMOS
+}
+   printf("\nALGORITMO OPTIMO\n");
+
+
+
 
 }
 
