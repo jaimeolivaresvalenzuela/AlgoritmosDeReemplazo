@@ -1,0 +1,3 @@
+Numero de Marcos : 
+
+ALGORITMO LRU
